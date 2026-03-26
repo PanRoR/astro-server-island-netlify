@@ -16,5 +16,19 @@ import SlowStats from "../components/SlowStats.astro";
         <SlowStats server:defer>
             <div slot="fallback">Lade Nutzerdaten…</div>
         </SlowStats>
+
+        <button id="btn-greeting">Get greeting</button>
     </body>
+
+    <script>
+        import { actions } from "astro:actions";
+
+        const button = document.getElementById("btn-greeting");
+        button?.addEventListener("click", async () => {
+            const { data, error } = await actions.getGreeting({
+                name: "Houston",
+            });
+            if (!error) alert(data);
+        });
+    </script>
 </html>
